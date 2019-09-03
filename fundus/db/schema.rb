@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2019_08_30_093849) do
     t.text "detail"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.decimal "reached_money", precision: 10
-    t.decimal "goal_money", precision: 10
+    t.decimal "reached_money", precision: 10, default: "0"
+    t.decimal "goal_money", precision: 10, default: "0"
     t.text "photos", limit: 4294967295, collation: "utf8mb4_bin"
     t.bigint "category_id"
     t.bigint "user_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_093849) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
-    t.integer "reply_for"
+    t.integer "reply_for", default: 0
     t.bigint "blog_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_093849) do
   end
 
   create_table "donations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.decimal "amount", precision: 10
+    t.decimal "amount", precision: 10, default: "0"
     t.bigint "user_id"
     t.bigint "cause_id"
     t.datetime "created_at", null: false
@@ -100,6 +100,9 @@ ActiveRecord::Schema.define(version: 2019_08_30_093849) do
     t.integer "followed_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

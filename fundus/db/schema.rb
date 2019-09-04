@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_30_093849) do
+ActiveRecord::Schema.define(version: 2019_09_06_073003) do
 
   create_table "attendances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "event_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_093849) do
 
   create_table "blogs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
-    t.string "content"
+    t.text "content"
     t.text "photo", limit: 4294967295, collation: "utf8mb4_bin"
     t.string "category"
     t.string "references"
@@ -72,6 +72,19 @@ ActiveRecord::Schema.define(version: 2019_08_30_093849) do
     t.datetime "updated_at", null: false
     t.index ["cause_id"], name: "index_donations_on_cause_id"
     t.index ["user_id"], name: "index_donations_on_user_id"
+  end
+
+  create_table "dusers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "role", default: 0
+    t.index ["email"], name: "index_dusers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_dusers_on_reset_password_token", unique: true
   end
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

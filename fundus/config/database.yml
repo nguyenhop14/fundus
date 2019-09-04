@@ -4,11 +4,11 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password:
-  host: <%= ENV.fetch("DATABASE_HOST", "mariadb") %>
+  host: <%= ENV.fetch("DATABASE_HOST", "172.20.0.2") %>
 
 development:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "my_app_development") %>
+  database: <%= ENV.fetch("DATABASE_NAME", "fundus_development") %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
